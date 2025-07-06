@@ -4,6 +4,8 @@ import 'package:news/categories/category_item.dart';
 import 'package:news/models/category_model.dart';
 
 class CategoryView extends StatelessWidget {
+void Function(CategoryModel) onCategorySelected;
+CategoryView({required this.onCategorySelected});
 
 
   @override
@@ -18,7 +20,9 @@ class CategoryView extends StatelessWidget {
       Text("Here is Some News For You",style: style.titleMedium,),
 Expanded(child: ListView.separated(
   padding: EdgeInsets.only(top: 16)
-,itemBuilder: (context, index) => CategoryItem(category:CategoryModel.category[index],), separatorBuilder: (context, index) => SizedBox(
+,itemBuilder: (context, index) => GestureDetector(onTap: () {
+  onCategorySelected(CategoryModel.category[index]);
+},child: CategoryItem(category:CategoryModel.category[index],)), separatorBuilder: (context, index) => SizedBox(
   height: 10,
 
 ), itemCount: CategoryModel.category.length))
