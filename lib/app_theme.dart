@@ -21,12 +21,39 @@ class AppTheme {
 
     ),
     textTheme: TextTheme(
+      titleLarge: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: white
+
+      ),
       titleMedium: TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.w500,
           color: white
 
-      )
+      ),
+      labelMedium:TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: white
+
+
+      ),
+      labelSmall:TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: white
+
+
+      ),
+      displaySmall: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          color: grey
+
+
+      ),
 
 
     )

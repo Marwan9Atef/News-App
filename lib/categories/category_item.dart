@@ -9,7 +9,7 @@ class CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius:BorderRadiusDirectional.circular(24),
-        child: Image.asset("assets/images/${category.imageName}.png",height:MediaQuery.sizeOf(context).height*.25,width: double.infinity,)
+        child: Image.asset("assets/images/${category.imageName}.png",height:MediaQuery.sizeOf(context).height*.25,width: double.infinity,fit:BoxFit.fill ,)
 
     );
   }
