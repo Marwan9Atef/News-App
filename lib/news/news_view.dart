@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:news/api/api_services.dart';
 import 'package:news/app_theme.dart';
 import 'package:news/models/article_respone.dart';
-import 'package:news/models/source_model.dart';
 import 'package:news/models/source_respone.dart';
 import 'package:news/news/news_item.dart';
 import 'package:news/news/tab_item.dart';
