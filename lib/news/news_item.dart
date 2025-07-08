@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news/app_theme.dart';
+import 'package:news/models/article_respone.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class NewsItem extends StatelessWidget {
-  final fifteenAgo = DateTime.now().subtract(Duration(minutes: 20));
+  Articles article;
+  NewsItem({required this.article});
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +23,18 @@ class NewsItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius:BorderRadius.circular(8) ,
-            child: Image.asset("assets/images/newitem.png",width:double.infinity,height: MediaQuery.sizeOf(context).height*.20,fit: BoxFit.fill,),
+            child: Image.network(article.urlToImage??"https://i.sstatic.net/y9DpT.jpg",width:double.infinity,height: MediaQuery.sizeOf(context).height*.20,fit: BoxFit.fill, errorBuilder: (context, error, stackTrace) {
+              return Image.asset("assets/images/notfoundimage.jpg");
+            },),
             
           ),
-          Text("40-year-old man falls 200 feet to his death while canyoneering at national park",style: textStyle.labelMedium,),
+          Text(article.title??"",style: textStyle.labelMedium,),
         SizedBox(height: 10,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("By : Jon Haworth",style: textStyle.displaySmall,),
-            Text(timeago.format(fifteenAgo),style: textStyle.displaySmall,)
+            Text(article.source!.name??"",style: textStyle.displaySmall,),
+            Text(timeago.format(DateTime.parse(article.publishedAt!) ??DateTime.now()),style: textStyle.displaySmall,)
             
             
             
