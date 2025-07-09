@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:news/categories/category_view.dart';
-import 'package:news/drawer/home_drawer.dart';
-import 'package:news/models/category_model.dart';
-import 'package:news/news/news_view.dart';
+import 'package:news/categories/view/screens/category_view.dart';
+import 'package:news/home/view/widgets/home_drawer.dart';
+import 'package:news/categories/view_model/category_view_model.dart';
+import 'package:news/news/view/screens/news_view.dart';
 
 class HomeScreen extends StatefulWidget {
 static const String routeName="/home";
@@ -12,9 +12,9 @@ static const String routeName="/home";
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-CategoryModel? selectedCategory;
+CategoryViewModel? selectedCategory;
 
-void onCategorySelected(CategoryModel category){
+void onCategorySelected(CategoryViewModel category){
   selectedCategory=category;
 setState(() {
 
@@ -33,7 +33,7 @@ void resetSelectedCategory() {
         title:selectedCategory==null?Text("Home"):Text(selectedCategory!.name),
 
       ),
-body:selectedCategory==null?CategoryView(onCategorySelected: onCategorySelected,):NewsView(sourceId: selectedCategory!.id),
+body:selectedCategory==null?CategoryView(onCategorySelected: onCategorySelected,):NewsView(selectedCategoryId: selectedCategory!.id),
 drawer: HomeDrawer(onGoToHomeClicked: resetSelectedCategory),
     );
   }

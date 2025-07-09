@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:news/app_theme.dart';
-import 'package:news/home_screen.dart';
+import 'package:news/shared/app_theme.dart';
+import 'package:news/home/view/screens/home_screen.dart';
 
 void main(){
   runApp(NewsApp());

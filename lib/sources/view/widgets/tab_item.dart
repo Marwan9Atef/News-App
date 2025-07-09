@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:news/models/source_respone.dart';
+import 'package:news/sources/data/models/source_respone.dart';
 
 class TabItem extends StatelessWidget {
   TabItem({required this.source,required this.isSlected});

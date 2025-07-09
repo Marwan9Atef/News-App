@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:news/models/category_model.dart';
+import 'package:news/categories/view_model/category_view_model.dart';
 
 class CategoryItem extends StatelessWidget {
- CategoryModel category;
+ CategoryViewModel category;
  CategoryItem({required this.category});
 
   @override

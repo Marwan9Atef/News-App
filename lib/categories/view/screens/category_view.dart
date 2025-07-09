@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:news/categories/category_item.dart';
-import 'package:news/models/category_model.dart';
+import 'package:news/categories/view/widgets/category_item.dart';
+import 'package:news/categories/view_model/category_view_model.dart';
 
 class CategoryView extends StatelessWidget {
-void Function(CategoryModel) onCategorySelected;
+void Function(CategoryViewModel) onCategorySelected;
 CategoryView({required this.onCategorySelected});
 
 
@@ -21,11 +21,11 @@ CategoryView({required this.onCategorySelected});
 Expanded(child: ListView.separated(
   padding: EdgeInsets.only(top: 16)
 ,itemBuilder: (context, index) => GestureDetector(onTap: () {
-  onCategorySelected(CategoryModel.category[index]);
-},child: CategoryItem(category:CategoryModel.category[index],)), separatorBuilder: (context, index) => SizedBox(
+  onCategorySelected(CategoryViewModel.category[index]);
+},child: CategoryItem(category:CategoryViewModel.category[index],)), separatorBuilder: (context, index) => SizedBox(
   height: 10,
 
-), itemCount: CategoryModel.category.length))
+), itemCount: CategoryViewModel.category.length))
 
         ],
 
