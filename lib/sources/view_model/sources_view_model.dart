@@ -1,28 +1,28 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news/shared/services_locator.dart';
-import 'package:news/sources/data/data_source/sources_api_data_source.dart';
 import 'package:news/sources/data/models/source_respone.dart';
 import 'package:news/sources/data/repositories/sources_repositories.dart';
+import 'package:news/sources/view_model/sources_state.dart';
 
-class SourcesViewModel with ChangeNotifier {
-  bool isLoading=false;
+class SourcesViewModel extends Cubit<SourcesState> {
+
 late SourcesRepository repository;
-SourcesViewModel(){
+SourcesViewModel():super(SourcesInitialState()){
   repository=SourcesRepository(dataSource: ServicesLocator.sourcesDataSource);
 
 }
   List<Sources>sources=[];
   String? errorMessage;
   Future<void> getSources(String categoryId)async {
-    isLoading=true;
+ emit(GetSourcesIsLoadingState());
     try {
        sources = await repository.getSources(categoryId);
+       emit(GetSourcesSuccessState(sources: sources));
     }catch(error){
-      errorMessage=error.toString();
+      emit(GetSourcesErrorState(errorMessage: error.toString()));
 
     }
-    isLoading=false;
-    notifyListeners();
+
 
   }
 

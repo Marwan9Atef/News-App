@@ -1,13 +1,14 @@
-import 'package:flutter/widgets.dart';
-import 'package:news/news/data/data_source/news_api_data_source.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news/news/data/models/article_respone.dart';
 import 'package:news/news/data/repositories/news_repository.dart';
+import 'package:news/news/view_model/news_state.dart';
 import 'package:news/shared/services_locator.dart';
 
-class NewsViewModel with ChangeNotifier {
-  bool isLoading = false;
+
+class NewsViewModel extends Cubit<NewsState> {
+
 late  NewsRepository repository;
-NewsViewModel(){
+NewsViewModel():super(NewsInitialState()){
   repository=NewsRepository(dataSource: ServicesLocator.newsDataSource);
 }
 
@@ -15,13 +16,13 @@ NewsViewModel(){
   String? errorMessage;
 
   Future<void> getSources(String sourceId) async {
-    isLoading = true;
+    emit(GetNewsIsLoadingState());
     try {
       article= await repository.getArticle(sourceId);
+      emit(GetNewsSuccessState(article: article));
     } catch (error) {
-      errorMessage = error.toString();
+ emit(GetNewsErrorState(errorMesssage: error.toString()));
     }
-    isLoading = false;
-    notifyListeners();
+
   }
 }

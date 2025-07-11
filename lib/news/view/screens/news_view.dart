@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news/news/view_model/news_state.dart';
 import 'package:news/shared/app_theme.dart';
 import 'package:news/news/data/models/article_respone.dart';
 import 'package:news/news/view_model/news_view_model.dart';
 import 'package:news/sources/data/models/source_respone.dart';
 import 'package:news/news/view/widgets/news_item.dart';
 import 'package:news/sources/view/widgets/tab_item.dart';
+import 'package:news/sources/view_model/sources_state.dart';
 import 'package:news/sources/view_model/sources_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -32,15 +35,15 @@ int currentIndex=0;
   @override
   Widget build(BuildContext context) {
     return
-      ChangeNotifierProvider(
+      BlocProvider<SourcesViewModel>(
         create:(context) => sourcesViewModel,
-        child: Consumer<SourcesViewModel>(builder: (_, sourcesViewModel, __) {
-          if (sourcesViewModel.isLoading) {
-            return LoadingIndicator();
-          } else if (sourcesViewModel.errorMessage!=null) {
-            return ErrorIndicator(errorMessage: sourcesViewModel.errorMessage!);
-          } else {
-            List<Sources>sources = sourcesViewModel.sources;
+        child: BlocBuilder<SourcesViewModel,SourcesState>(builder: (_,state) {
+          if (state is GetSourcesIsLoadingState) {
+            return const LoadingIndicator();
+          } else if (state is GetSourcesErrorState) {
+            return ErrorIndicator(errorMessage:state.errorMessage);
+          } else if (state is GetSourcesSuccessState){
+            List<Sources>sources = state.sources;
             newsViewModel.getSources(sources[currentIndex].id!);
             return Column(
               children: [
@@ -65,16 +68,16 @@ int currentIndex=0;
                           .toList()),
                 ),
                 Expanded(
-                  child: ChangeNotifierProvider(
+                  child: BlocProvider<NewsViewModel>(
                     create: (context) => newsViewModel,
-                    child: Consumer<NewsViewModel>(builder: (_,newsViewModel, __) {
-                      if (newsViewModel.isLoading) {
+                    child: BlocBuilder<NewsViewModel,NewsState>(builder: (_,state) {
+                      if (state is GetNewsIsLoadingState) {
                         return const LoadingIndicator();
                       } else
-                      if (newsViewModel.errorMessage!=null) {
-                        return  ErrorIndicator(errorMessage: newsViewModel.errorMessage!);
-                      } else {
-                        List<Articles> artticles = newsViewModel.article;
+                      if (state is GetNewsErrorState) {
+                        return  ErrorIndicator(errorMessage: state.errorMesssage);
+                      } else if(state is GetNewsSuccessState) {
+                        List<Articles> artticles = state.article;
                         return ListView.separated(
                             padding: const EdgeInsetsDirectional.only(top: 16),
                             itemBuilder: (context, index) =>
@@ -82,6 +85,8 @@ int currentIndex=0;
                             separatorBuilder: (context, index) =>
                                 SizedBox(height: 16,),
                             itemCount: artticles.length);
+                      }else{
+                        return const SizedBox();
                       }
 
                     },),
@@ -94,6 +99,8 @@ int currentIndex=0;
 
 
             );
+          }else{
+            return const SizedBox();
           }
         },),
       );
