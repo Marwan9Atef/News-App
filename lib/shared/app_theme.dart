@@ -20,6 +20,8 @@ class AppTheme {
 
 
     ),
+
+
     textTheme: TextTheme(
       titleLarge: TextStyle(
           fontSize: 20,

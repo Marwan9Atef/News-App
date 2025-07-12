@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:news/home/view/widgets/dropdown_button_item.dart';
 import 'package:news/shared/app_theme.dart';
 
 class HomeDrawer extends StatefulWidget {
@@ -81,7 +82,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   ),
                   Row(
                     children: [
-                      SvgPicture.asset("assets/icons/theme.svg"),
+                      SvgPicture.asset("assets/icons/theme.svg",width: 24,height: 24,fit: BoxFit.scaleDown,),
                      const SizedBox(
                         width: 8,
 
@@ -103,29 +104,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
                     ),
                     padding:const EdgeInsetsDirectional.only(end: 16,start: 16),
-                    child: DropdownButton<String>(
-                      style: textTheme.titleLarge,
-                        value:selectedTheme,
-                        isExpanded: true,
-                        focusColor: AppTheme.black,
-                       underline: const SizedBox(),
-                        dropdownColor: AppTheme.black,
-                        borderRadius: BorderRadius.circular(16),
-                        iconDisabledColor: AppTheme.white,
-                        iconEnabledColor: AppTheme.white,
-                        items:themeOption.map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(value: value, child: Text(value));
-                        }).toList(),
-                    onChanged: (value) {
-                          if(selectedTheme==value)return;
-                          selectedTheme=value!;
-                          setState(() {
-
-                          });
-                    },
-
-
-                    ),
+                    child:DropdownButtonItem(options: themeOption,selectedOption: selectedTheme,),
                   ),
                   const SizedBox(
                     height: 24,
@@ -138,7 +117,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   ),
                   Row(
                     children: [
-                      SvgPicture.asset("assets/icons/language.svg"),
+                      SvgPicture.asset("assets/icons/language.svg",width: 24,height: 24,fit: BoxFit.scaleDown,),
                       const SizedBox(
                         width: 8,
 
@@ -160,29 +139,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
                     ),
                     padding:const EdgeInsetsDirectional.only(end: 16,start: 16),
-                    child: DropdownButton<String>(
-                      style: textTheme.titleLarge,
-                      value:selectedLanguage,
-                      isExpanded: true,
-                      focusColor: AppTheme.black,
-                      underline: const SizedBox(),
-                      dropdownColor: AppTheme.black,
-                      borderRadius: BorderRadius.circular(16),
-                      iconDisabledColor: AppTheme.white,
-                      iconEnabledColor: AppTheme.white,
-                      items:languageOption.map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(value: value, child: Text(value));
-                      }).toList(),
-                      onChanged: (value) {
-                        if(selectedLanguage==value)return;
-                        selectedLanguage=value!;
-                        setState(() {
-
-                        });
-                      },
-
-
-                    ),
+                    child: DropdownButtonItem(selectedOption: selectedLanguage, options: languageOption),
                   ),
 
                 ],
