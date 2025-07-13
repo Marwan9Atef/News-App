@@ -4,14 +4,14 @@ import 'package:news/news/data/models/article_respone.dart';
 
 class NewsViewModel with ChangeNotifier {
   bool isLoading = false;
-  NewsDataSource sourcesDataSource = NewsDataSource();
+  NewsDataSource newsDataSource = NewsDataSource();
   List<Articles>article = [];
   String? errorMessage;
 
   Future<void> getSources(String sourceId) async {
     isLoading = true;
     try {
-      ArticleRespone response = await sourcesDataSource.getArticle(sourceId);
+      ArticleRespone response = await newsDataSource.getArticle(sourceId);
       if (response.status == "ok" && response.articles != null) {
         article = response.articles!;
       } else {
